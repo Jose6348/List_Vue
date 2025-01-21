@@ -1,24 +1,43 @@
 <template>
-  <form @submit="onSubmit" class="add-form">
+  <form @submit.prevent="onSubmit" class="add-form">
     <div class="form-control">
-      <label>Task</label>
-      <input type="text" v-model="text" name="text" placeholder="Add Task" />
+      <label for="task">Task</label>
+      <input 
+        id="task" 
+        type="text" 
+        v-model.trim="text" 
+        name="text" 
+        placeholder="Adicionar tarefa " 
+        required 
+        aria-label="Enter the task description"
+      />
     </div>
     <div class="form-control">
-      <label>Day & Time</label>
-      <input
-        type="text"
-        v-model="day"
-        name="day"
-        placeholder="Add Day & Time"
+      <label for="day">Day & Time</label>
+      <input 
+        id="day" 
+        type="datetime-local" 
+        v-model="day" 
+        name="day" 
+        placeholder="Add Day & Time" 
+        required 
+        aria-label="Select the day and time for the task"
       />
     </div>
     <div class="form-control form-control-check">
-      <label>Set Reminder</label>
-      <input type="checkbox" v-model="reminder" name="reminder" />
+      <label for="reminder">Set Reminder</label>
+      <input 
+        id="reminder" 
+        type="checkbox" 
+        v-model="reminder" 
+        name="reminder" 
+        aria-label="Check to set a reminder for this task"
+      />
     </div>
 
-    <input type="submit" value="Save Task" class="btn btn-block" />
+    <button type="submit" class="btn btn-block" :disabled="!text">
+      Save Task
+    </button>
   </form>
 </template>
 
@@ -33,16 +52,13 @@ export default {
     }
   },
   methods: {
-    onSubmit(e) {
-      e.preventDefault()
-
+    onSubmit() {
       if (!this.text) {
-        alert('Please add a task')
-        return
+        return; // Evita a necessidade de um alert, usamos o atributo 'required' no input
       }
 
       const newTask = {
-        // id: Math.floor(Math.random() * 100000),
+        id: Date.now().toString(), // Usar um ID mais previsível e único
         text: this.text,
         day: this.day,
         reminder: this.reminder,
@@ -71,12 +87,15 @@ export default {
   display: block;
 }
 
-.form-control input {
+.form-control input[type="text"],
+.form-control input[type="datetime-local"] {
   width: 100%;
   height: 40px;
-  margin: 5px;
+  margin: 5px 0;
   padding: 3px 7px;
   font-size: 17px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .form-control-check {
@@ -89,8 +108,37 @@ export default {
   flex: 1;
 }
 
-.form-control-check input {
-  flex: 2;
-  height: 20px;
+.form-control-check input[type="checkbox"] {
+  margin-left: 10px;
+  transform: scale(1.5); /* Torna o checkbox mais visível */
+}
+
+.btn {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
 }
 </style>
