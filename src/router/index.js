@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home'
-import About from '../views/About'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import AboutTab from '@/components/AboutTab.vue'
+import PrivacyTab from '@/components/PrivacyTab.vue'
+import TermsTab from '@/components/TermsTab.vue'
 
 const routes = [
   {
@@ -12,6 +15,21 @@ const routes = [
     path: '/about',
     name: 'About',
     component: About,
+  },
+  {
+    path: '/sobre',
+    name: 'Sobre',
+    component: AboutTab
+  },
+  {
+    path: '/privacidade',
+    name: 'Privacidade',
+    component: PrivacyTab
+  },
+  {
+    path: '/termos',
+    name: 'Termos',
+    component: TermsTab
   },
 ]
 
