@@ -1,3 +1,28 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "id": "1737422798623",
+      "text": "treinar",
+      "day": "2025-01-16T22:26",
+      "reminder": false
+    },
+    {
+      "id": "1737422869263",
+      "text": "Aplicar drogas",
+      "day": "2025-01-25T04:29",
+      "reminder": false
+    },
+    {
+      "id": "1737423056981",
+      "text": "treinar",
+      "day": "2025-01-06T22:30",
+      "reminder": false
+    },
+    {
+      "id": "1737423206628",
+      "text": "treinar",
+      "day": "2025-01-29T22:33",
+      "reminder": false
+    }
+  ]
 }
