@@ -1,11 +1,19 @@
 <template>
-  <div
+  <div 
     @dblclick="$emit('toggle-reminder', task.id)"
     :class="[task.reminder ? 'reminder' : '', 'task']"
+    :aria-label="`Task: ${task.text}, Due: ${task.day}`"
+    role="article"
   >
     <h3>
       {{ task.text }}
-      <i @click="$emit('delete-task', task.id)" class="fas fa-times"></i>
+      <button 
+        @click.stop="$emit('delete-task', task.id)" 
+        aria-label="Delete task"
+        class="delete-icon"
+      >
+        <i class="fas fa-times"></i>
+      </button>
     </h3>
     <p>{{ task.day }}</p>
   </div>
@@ -15,21 +23,25 @@
 export default {
   name: 'Task',
   props: {
-    task: Object,
-  },
+    task: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
-
-<style scope>
-.fas {
-  color: red;
-}
-
+<style scoped>
 .task {
   background: #f4f4f4;
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.task:hover {
+  background-color: #e9e9e9;
 }
 
 .task.reminder {
@@ -40,5 +52,23 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0; /* Removendo margem padrão do h3 */
+}
+
+.fas {
+  color: red;
+}
+
+.delete-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1em;
+}
+
+.delete-icon:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.5); /* destacando o botão ao focar */
 }
 </style>
